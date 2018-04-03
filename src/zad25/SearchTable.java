@@ -10,12 +10,13 @@ public class SearchTable {
     private static final int CHUNK_SIZE = 100;
     private static final int VALUE = 73;
     private static final int THREADS = ARRAY_SIZE / CHUNK_SIZE;
-    private static final int MIN = 1000;
-    private static final int MAX = 1;
+    private static final int MAX = 1000;
+    private static final int MIN = 1;
 
-    private int[] generateTable(int [] array, int min, int max){
-        //TODO
-        //int rand = ThreadLocalRandom.current().nextInt(min, max + 1);
+    private static int[] generateTable(int [] array, int min, int max){
+        for(int i = 0; i < array.length; i++) {
+            array[i] = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
+        }
         return array;
     }
 
@@ -23,11 +24,11 @@ public class SearchTable {
         AtomicBoolean foundFlag = new AtomicBoolean(false);
         CountDownLatch latch = new CountDownLatch(THREADS);
         int[] array = new int[ARRAY_SIZE];
-        //TODO generate array
+        generateTable(array, MIN, MAX);
         for(int i = 0; i < ARRAY_SIZE; i += CHUNK_SIZE){
-            new Searcher(array, i, i + CHUNK_SIZE, VALUE, foundFlag, latch);
+            new Searcher(array, i, i + CHUNK_SIZE, VALUE, foundFlag, latch).start();
         }
         latch.await();
-        System.out.println();
+        System.out.println(foundFlag.get());
     }
 }

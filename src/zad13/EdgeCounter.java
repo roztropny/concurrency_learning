@@ -3,7 +3,7 @@ package zad13;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EdgeCounter implements Runnable{
+public class EdgeCounter extends Thread{
 
     private boolean[][] graph;
     private int i;

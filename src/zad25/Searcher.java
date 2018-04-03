@@ -3,7 +3,7 @@ package zad25;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Searcher implements Runnable {
+public class Searcher extends Thread {
 
     private int[] array;
     private int start;
@@ -21,7 +21,6 @@ public class Searcher implements Runnable {
         this.latch = latch;
     }
 
-    @Override
     public void run() {
         for(int i = start; i < end; i++){
             if(foundFlag.get()){
