@@ -19,6 +19,7 @@ public class Searcher extends Thread {
         this.value = value;
         this.foundFlag = foundFlag;
         this.latch = latch;
+        this.run();
     }
 
     public void run() {
